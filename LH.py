@@ -88,7 +88,7 @@ def dofetch(id, key, region):
         InstanceState =s1[i]["InstanceState"]
         TrafficPackageTotal = round(s3['TrafficPackageTotal']/GB,2)
         TrafficUsed = round(s3['TrafficUsed']/GB,2)
-        TrafficPackageRemaining=str(round(s3['TrafficPackageRemaining']/GB,2)) 
+        TrafficPackageRemaining=str(round(s3['TrafficPackageRemaining']/GB,2))
         #告警数据
         global gaojinData
         gaojinData="流量告警数据:\n"+"已使用："+str(TrafficUsed)+"GB"+"\n"+"总流量："+str(TrafficPackageTotal)+"GB"+"\n"+"剩余量："+str(TrafficPackageRemaining)+"GB"
@@ -120,7 +120,7 @@ def dofetch(id, key, region):
                 response= requests.get(url=msgUrl).text
                 print (response)        
         else:
-            if (TrafficUsed/TrafficPackageTotal<percent):
+            if (TrafficUsed/TrafficPackageTotal<percent and InstanceState == "STOPPED"):
                 #告警结果：
                 print("剩余流量充足，将自动开机")
                 req_Start = models.StartInstancesRequest()
